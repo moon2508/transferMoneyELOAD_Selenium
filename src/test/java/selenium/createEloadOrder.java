@@ -3,6 +3,7 @@ package selenium;
 import org.openqa.selenium.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -16,7 +17,7 @@ public class createEloadOrder {
     public static void main(String[] args) throws Exception {
         try {
             // Create a new instance of the Firefox driver
-            WebDriver driver = new FirefoxDriver();
+            WebDriver driver = new ChromeDriver();
 
             //Launch the Online Store Website
             driver.get("http://192.168.100.192:1999/");
@@ -30,7 +31,7 @@ public class createEloadOrder {
             password.sendKeys("123456");
             driver.findElement(By.className("btn-success")).click();
 
-            //Link to đơn hàng Eload selection
+//            Link to đơn hàng Eload selection
 //            List<WebElement> sidebar_headings = driver.findElements(By.tagName("li"));
 //            for (WebElement sidebar_heading : sidebar_headings) {
 //                if (sidebar_heading.getText().equals("Đơn hàng Airtime, Eload")) {
@@ -43,7 +44,9 @@ public class createEloadOrder {
 //                }
 //
 //            }
+
             driver.navigate().to("http://192.168.100.192:1999/order-itopup/create-sale");
+            Thread.sleep(5000);
 //            driver.navigate().refresh();
 
             // insert data - Provider
@@ -85,9 +88,19 @@ public class createEloadOrder {
 
             //option 2
             //click dropdown NCC
-            WebElement dropdown = driver.findElement(By.id("providerId_chosen"));
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("arguments[0].click();", dropdown);
+            WebElement dropdown = driver.findElement(By.xpath("//a//span[contains(text(),'Chọn Nhà cung cấp')]"));
+            dropdown.click();
+            driver.findElement(By.cssSelector("#providerId_chosen .chosen-search-input")).sendKeys("Vinaphone");
+            Thread.sleep(1000);
+
+            driver.findElement(By.xpath("//em[contains(text(),'Vinaphone')]")).click();
+
+                Thread.sleep(3000);
+            WebElement dropdown_product = driver.findElement(By.xpath("//a//span[contains(text(),'Chọn sản phẩm')]"));
+            dropdown_product.click();
+
+//            JavascriptExecutor js = (JavascriptExecutor) driver;
+//            js.executeScript("arguments[0].click();", dropdown_product);
 
 
 
@@ -97,7 +110,7 @@ public class createEloadOrder {
 
             System.out.println("Successfully opened the website");
 
-//        driver.quit();
+        driver.quit();
 
         } catch (StaleElementReferenceException e) {
             System.out.println("Exception: " + e);
