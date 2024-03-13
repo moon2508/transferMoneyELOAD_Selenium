@@ -30,87 +30,65 @@ public class createEloadOrder {
             WebElement password = driver.findElement(By.id("exampleInputPassword1"));
             password.sendKeys("123456");
             driver.findElement(By.className("btn-success")).click();
+            Thread.sleep(1000);
 
 //            Link to đơn hàng Eload selection
-//            List<WebElement> sidebar_headings = driver.findElements(By.tagName("li"));
-//            for (WebElement sidebar_heading : sidebar_headings) {
-//                if (sidebar_heading.getText().equals("Đơn hàng Airtime, Eload")) {
-//                    sidebar_heading.click();
-//                    List<WebElement> options = driver.findElements(By.tagName("a"));
-//                    for (WebElement option : options) {
-//                        if (option.getText().equals("Thêm mới")){
-//                            option.click();
-//                        }}
-//                }
-//
-//            }
 
-            driver.navigate().to("http://192.168.100.192:1999/order-itopup/create-sale");
-            Thread.sleep(5000);
-//            driver.navigate().refresh();
+            driver.findElement(By.linkText("Đơn hàng Airtime, Eload")).click();
+            driver.findElement(By.cssSelector("li:nth-child(32) li:nth-child(1) > a")).click();
+            driver.findElement(By.cssSelector(".btn-success")).click(); // click to Thêm mới button
 
-            // insert data - Provider
-//            List<WebElement> dropdowns = driver.findElements(By.tagName("a"));
-//            for (WebElement dropdown : dropdowns) {
-//                if (dropdown.getText().equals("Chọn Nhà cung cấp")) {
-//                    dropdown.click();
-//                    Thread.sleep(500);
-//                    List<WebElement> providers = driver.findElements(By.tagName("li"));
-//                    for (WebElement provider : providers) {
-//                        if (provider.getText().equals("AirTimeVNP")) {
-//                            provider.click();
-//
-//
-//                        }
-//
-//                    }
-//
-//                }
-//            }
-//
-////            }
-//            // insert data -  product
-//            List<WebElement> dropdown_products = driver.findElements(By.tagName("a"));
-//            for (WebElement dropdown_product : dropdown_products) {
-//                if (dropdown_product.getText().equals("Chọn sản phẩm")) {
-//                    dropdown_product.click();
-//                    Thread.sleep(500);
-//                    List<WebElement> products = driver.findElements(By.tagName("li"));
-//                    for (WebElement product : products) {
-//                        if (product.getText().equals("Eload Vinaphone")) {
-//                            product.click();
-//                        }
-//
-//                    }
-//                }}
-//            Select dropdown = new Select(driver.findElement(By.id("inputProduct_chosen")));
-//            dropdown.selectByVisibleText("Eload Vinaphone");
+            Thread.sleep(1000);
 
-            //option 2
             //click dropdown NCC
             WebElement dropdown = driver.findElement(By.xpath("//a//span[contains(text(),'Chọn Nhà cung cấp')]"));
             dropdown.click();
-            driver.findElement(By.cssSelector("#providerId_chosen .chosen-search-input")).sendKeys("Vinaphone");
+            driver.findElement(By.cssSelector("#providerId_chosen .chosen-search-input")).sendKeys("AirTimeVNP");
             Thread.sleep(1000);
 
-            driver.findElement(By.xpath("//em[contains(text(),'Vinaphone')]")).click();
+            driver.findElement(By.xpath("//em[contains(text(),'AirTimeVNP')]")).click();
+            Thread.sleep(1000);
 
-                Thread.sleep(3000);
+            //click dropdown product
             WebElement dropdown_product = driver.findElement(By.xpath("//a//span[contains(text(),'Chọn sản phẩm')]"));
             dropdown_product.click();
+            Thread.sleep(1000);
+            driver.findElement(By.xpath("//li[contains(text(),'Eload Vinaphone')]")).click();
+            Thread.sleep(1000);
 
-//            JavascriptExecutor js = (JavascriptExecutor) driver;
-//            js.executeScript("arguments[0].click();", dropdown_product);
+            //click seller
+            driver.findElement(By.xpath("//span[contains(text(),'Chọn Pháp nhân bán')]")).click();
+            Thread.sleep(1000);
+            driver.findElement(By.cssSelector("#merchantSale_chosen .active-result:nth-child(2)")).click();
 
+            //click seller account
+            driver.findElement(By.cssSelector("#phoneNumberConnection_chosen span")).click();
+            Thread.sleep(1000);
+            driver.findElement(By.xpath("//li[contains(text(),'Imedia - 0915971772')]")).click();
 
+            //click buyer
+            driver.findElement(By.cssSelector("#merchantBuy_chosen span")).click();
+            Thread.sleep(1000);
+            driver.findElement(By.xpath("//li[contains(text(),'PCQ')]")).click();
 
+            // click phone number
+            driver.findElement(By.cssSelector("#phoneNumber_chosen span")).click();
+            Thread.sleep(1000);
+            driver.findElement(By.cssSelector("#phoneNumber_chosen .active-result:nth-child(2)")).click();
 
+            //input quantity & commission
+            driver.findElement((By.cssSelector(".quantity-0"))).sendKeys("10000000");
+            driver.findElement(By.cssSelector(".commission-0")).sendKeys("1.5");
+
+            //note order
+            driver.findElement(By.cssSelector("#sale-note")).sendKeys("Test đơn hàng bằng selenium");
+            driver.findElement(By.cssSelector(".btn-success")).click();
 
 
 
             System.out.println("Successfully opened the website");
 
-        driver.quit();
+            driver.quit();
 
         } catch (StaleElementReferenceException e) {
             System.out.println("Exception: " + e);
