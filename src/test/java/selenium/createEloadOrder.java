@@ -82,8 +82,8 @@ public class createEloadOrder {
 
             //note order
             driver.findElement(By.cssSelector("#sale-note")).sendKeys("Test đơn hàng bằng selenium");
-            driver.findElement(By.cssSelector(".btn-success")).click();
-
+//            driver.findElement(By.cssSelector(".btn-success")).click();
+            driver.findElement(By.xpath("//button[contains(text(),'Gửi duyệt')]")).click();
 
 
             System.out.println("Successfully opened the website");
@@ -93,21 +93,6 @@ public class createEloadOrder {
         } catch (StaleElementReferenceException e) {
             System.out.println("Exception: " + e);
         }
-
-
-
-        // Access the airtime/eload order - ADD eload order
-//        driver.navigate().to("http://192.168.100.192:1999/order-itopup/create-sale");
-
-
-
-
-
-
-
-
-
-
 
     }
 }

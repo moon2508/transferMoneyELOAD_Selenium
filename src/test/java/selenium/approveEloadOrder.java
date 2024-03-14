@@ -34,5 +34,24 @@ public class approveEloadOrder {
 
         driver.findElement(By.cssSelector("#searchListOrder")).click();
 
+        //click a order
+        driver.findElement(By.cssSelector(".text-center > a")).click();
+
+        //click Duyệt button
+        driver.findElement(By.xpath("//button[contains(text(),'Duyệt')]")).click();
+        Thread.sleep(1000);
+
+
+        //input MPIN
+        WebElement content =  driver.findElement(By.xpath("//div//input[@id='contentApproveOrderEload']"));
+        content.click();
+        content.sendKeys("123456");
+
+        //Accept
+        driver.findElement(By.cssSelector("#approveOrderEload .btn-danger")).click();
+
+        driver.quit();
+
+
     }
 }
